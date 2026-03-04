@@ -91,4 +91,18 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
+    private fun checkLevel3(): Boolean {
+        for (row in 0 until 5) {
+            var redCount = 0
+            for (col in 0 until 3) {
+                val index = row * 3 + col
+                val color = (squares[index].background as ColorDrawable).color
+                if (color == myRed) {
+                    redCount++
+                }
+            }
+            if (redCount != 1) return false
+        }
+        return true
+    }
 }
