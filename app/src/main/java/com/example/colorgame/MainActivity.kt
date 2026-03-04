@@ -105,4 +105,18 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
+    private fun checkLevel4(): Boolean {
+        for (i in squares.indices) {
+            val currentColor = (squares[i].background as ColorDrawable).color
+            if (i % 3 != 2) {
+                val rightColor = (squares[i + 1].background as ColorDrawable).color
+                if (currentColor == rightColor) return false
+            }
+            if (i < 12) {
+                val bottomColor = (squares[i + 3].background as ColorDrawable).color
+                if (currentColor == bottomColor) return false
+            }
+        }
+        return true
+    }
 }
