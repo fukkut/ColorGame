@@ -56,5 +56,21 @@ class MainActivity : AppCompatActivity() {
             cell.setBackgroundColor(randomColor())
         }
         restartGame()
+
+        squares.forEach { cell ->
+            cell.setOnClickListener {
+                changeColor(cell)
+            }
+        }
+    }
+    private fun changeColor(cell: TextView) {
+        val currentColor = (cell.background as ColorDrawable).color
+
+        val nextColor = when (currentColor) {
+            myRed -> myYellow
+            myYellow -> myGreen
+            else -> myRed
+        }
+        cell.setBackgroundColor(nextColor)
     }
 }
