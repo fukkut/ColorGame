@@ -119,4 +119,22 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
+    private fun checkWin() {
+        val win = when(level) {
+            1 -> checkLevel1()
+            2 -> checkLevel2()
+            3 -> checkLevel3()
+            4 -> checkLevel4()
+            else -> false
+        }
+        if (win) {
+            showLevelDialog()
+        }
+        squares.forEach { cell ->
+            cell.setOnClickListener {
+                changeColor(cell)
+                checkWin()
+            }
+        }
+    }
 }
