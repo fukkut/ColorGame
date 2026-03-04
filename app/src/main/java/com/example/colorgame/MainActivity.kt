@@ -73,4 +73,22 @@ class MainActivity : AppCompatActivity() {
         }
         cell.setBackgroundColor(nextColor)
     }
+    private fun checkLevel1(): Boolean {
+        val firstColor = (squares[0].background as ColorDrawable).color
+        return squares.all {
+            (it.background as ColorDrawable).color == firstColor
+        }
+    }
+    private fun checkLevel2(): Boolean {
+        for (i in squares.indices) {
+            val column = i % 3
+            val color = (squares[i].background as ColorDrawable).color
+            when(column) {
+                0 -> if (color != myYellow) return false
+                1 -> if (color != myRed) return false
+                2 -> if (color != myGreen) return false
+            }
+        }
+        return true
+    }
 }
