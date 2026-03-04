@@ -137,4 +137,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    private fun showLevelDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Рівень $level пройдено!")
+            .setMessage("Хороша робота! Оберіть дію:")
+            .setPositiveButton("Наступний рівень") { _, _ ->
+                if (level < 4) {
+                    level++
+                    restartGame()
+                }
+            }
+            .setNegativeButton("Спочатку") { _, _ ->
+                level = 1
+                restartGame()
+            }
+            .setNeutralButton("Вийти") { _, _ ->
+                finish()
+            }
+            .show()
+    }
 }
