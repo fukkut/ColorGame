@@ -46,6 +46,14 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.square14),
             findViewById(R.id.square15)
         )
+        restartGame()
+
+        squares.forEach { cell ->
+            cell.setOnClickListener {
+                changeColor(cell)
+                checkWin()
+            }
+        }
     }
     private fun randomColor(): Int {
         val colors = listOf(myRed, myYellow, myGreen)
@@ -54,13 +62,6 @@ class MainActivity : AppCompatActivity() {
     private fun restartGame() {
         squares.forEach { cell ->
             cell.setBackgroundColor(randomColor())
-        }
-        restartGame()
-
-        squares.forEach { cell ->
-            cell.setOnClickListener {
-                changeColor(cell)
-            }
         }
     }
     private fun changeColor(cell: TextView) {
@@ -72,6 +73,18 @@ class MainActivity : AppCompatActivity() {
             else -> myRed
         }
         cell.setBackgroundColor(nextColor)
+    }
+    private fun checkWin() {
+        val win = when(level) {
+            1 -> checkLevel1()
+            2 -> checkLevel2()
+            3 -> checkLevel3()
+            4 -> checkLevel4()
+            else -> false
+        }
+        if (win) {
+            showLevelDialog()
+        }
     }
     private fun checkLevel1(): Boolean {
         val firstColor = (squares[0].background as ColorDrawable).color
@@ -118,24 +131,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
-    }
-    private fun checkWin() {
-        val win = when(level) {
-            1 -> checkLevel1()
-            2 -> checkLevel2()
-            3 -> checkLevel3()
-            4 -> checkLevel4()
-            else -> false
-        }
-        if (win) {
-            showLevelDialog()
-        }
-        squares.forEach { cell ->
-            cell.setOnClickListener {
-                changeColor(cell)
-                checkWin()
-            }
-        }
     }
     private fun showLevelDialog() {
         AlertDialog.Builder(this)
